@@ -20,10 +20,13 @@ Object.keys(charactersAllowed).forEach((base) => {
 inputs.forEach((input) => {
     input.value = "0";
 
-    input.parentElement.querySelector('.copy').onclick = () => {
+    input.parentElement.querySelector(".copy").onclick = () => {
+        let length = input.value.length;
         input.select();
         document.execCommand("copy");
-    }
+        input.setSelectionRange(length, length);
+        input.blur();
+    };
 
     input.onfocus = () => {
         input.parentElement
