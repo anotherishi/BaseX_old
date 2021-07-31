@@ -1,4 +1,27 @@
 const errorWindow = document.getElementById("error");
+const errorText = errorWindow.lastChild;
+// const errorCloseButton = errorWindow.querySelector("img");
+
+// errorCloseButton.onclick = closeErrorWindow;
+
+function closeErrorWindow() {
+    errorWindow.style.opacity = "0";
+    setTimeout(() => {
+        errorWindow.setAttribute("hidden", "");
+    }, 500);
+}
+
+let timeout = 0;
+function handleInvalidCharacter(character) {
+    errorWindow.removeAttribute("hidden");
+    clearTimeout(timeout);
+    setTimeout(() => {
+    errorWindow.style.opacity='1'
+    }, 15);
+    errorText.textContent = character + " is not allowed";
+    timeout = setTimeout(closeErrorWindow, 1000);
+}
+
 // const expl = document.getElementById("expl");
 // const explt = document.getElementById("expl-title");
 // const explc = document.getElementById("expl-content");
@@ -9,8 +32,6 @@ const charactersAllowed = {
     decimal: "0123456789",
     hexaDecimal: "0123456789abcdefABCDEF",
 };
-
-let timeout;
 
 let inputs = [];
 Object.keys(charactersAllowed).forEach((base) => {
@@ -53,13 +74,15 @@ inputs.forEach((input) => {
                 el.value = window[input.id][el.id](data);
             });
         } else {
-            clearTimeout(timeout);
-            errorWindow.style.opacity = "1";
-            errorWindow.textContent = character + " is not allowed";
-            timeout = setTimeout(() => {
-                errorWindow.style.opacity = "0";
-                errorWindow.textContent = "";
-            }, 1000);
+            if (character != " ")
+            handleInvalidCharacter(character);
+            // clearTimeout(timeout);
+            // errorText.style.opacity = "1";
+            // errorText.textContent = character + " is not allowed";
+            // timeout = setTimeout(() => {
+            //     errorText.style.opacity = "0";
+            //     errorText.textContent = "";
+            // }, 1000);
             if (character) {
                 input.value = input.value.replaceAll(character, "");
                 inputEvent.target.setSelectionRange(
