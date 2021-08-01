@@ -1,8 +1,5 @@
 const errorWindow = document.getElementById("error");
-const errorText = errorWindow.lastChild;
-// const errorCloseButton = errorWindow.querySelector("img");
-
-// errorCloseButton.onclick = closeErrorWindow;
+const errorText = errorWindow.lastElementChild;
 
 function closeErrorWindow() {
     errorWindow.style.opacity = "0";
@@ -12,19 +9,16 @@ function closeErrorWindow() {
 }
 
 let timeout = 0;
-function handleInvalidCharacter(character) {
+function handleInvalidCharacter(character, base) {
     errorWindow.removeAttribute("hidden");
     clearTimeout(timeout);
     setTimeout(() => {
-    errorWindow.style.opacity='1'
+        errorWindow.style.opacity = "1";
     }, 15);
-    errorText.textContent = character + " is not allowed";
-    timeout = setTimeout(closeErrorWindow, 1000);
+    errorText.textContent = `"${character}" is not allowed in ${base}.`;
+    timeout = setTimeout(closeErrorWindow, 2000);
 }
 
-// const expl = document.getElementById("expl");
-// const explt = document.getElementById("expl-title");
-// const explc = document.getElementById("expl-content");
 
 const charactersAllowed = {
     binary: "01",
@@ -67,22 +61,17 @@ inputs.forEach((input) => {
         if (
             charactersAllowed[input.id].includes(character) ||
             inputEvent.inputType === "deleteContentBackward" ||
-            inputEvent.inputType === "deleteContentForward"
+            inputEvent.inputType === "deleteContentForward" ||
+            inputEvent.inputType === "insertFromPaste" ||
+            inputEvent.inputType === "deleteWordBackward" ||
+            inputEvent.inputType === "deleteWordForward"
         ) {
             if (data.startsWith("0")) input.value = removeLeadingZeros(data);
             remove(inputs, input).forEach((el) => {
                 el.value = window[input.id][el.id](data);
             });
         } else {
-            if (character != " ")
-            handleInvalidCharacter(character);
-            // clearTimeout(timeout);
-            // errorText.style.opacity = "1";
-            // errorText.textContent = character + " is not allowed";
-            // timeout = setTimeout(() => {
-            //     errorText.style.opacity = "0";
-            //     errorText.textContent = "";
-            // }, 1000);
+            if (character != " ") handleInvalidCharacter(character, input.id);
             if (character) {
                 input.value = input.value.replaceAll(character, "");
                 inputEvent.target.setSelectionRange(
@@ -124,3 +113,5 @@ inputs.forEach((input) => {
 //         return result.reverse().join("");
 //     },
 // };
+
+onresize = updatebg;
