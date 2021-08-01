@@ -58,6 +58,7 @@ background-color: aqua;
 
 #error img {
     width: 3vh;
+    
     background-color: #ff7777;
     padding: 0.5vh;
     clip-path: polygon(
