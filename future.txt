@@ -1,2 +1,3 @@
-add aniamtion to explanation steps
+add animation to explanation steps
 add sound effects
+add floating point support
