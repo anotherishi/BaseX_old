@@ -1,6 +1,8 @@
 const errorWindow = document.getElementById("error");
 const errorText = errorWindow.lastElementChild;
 
+const errorSound = new Audio("./sounds/error.mp3");
+
 function closeErrorWindow() {
     errorWindow.style.opacity = "0";
     setTimeout(() => {
@@ -12,13 +14,14 @@ let timeout = 0;
 function handleInvalidCharacter(character, base) {
     errorWindow.removeAttribute("hidden");
     clearTimeout(timeout);
+    errorSound.currentTime = 0
+    errorSound.play();
     setTimeout(() => {
         errorWindow.style.opacity = "1";
     }, 15);
     errorText.textContent = `"${character}" is not allowed in ${base}.`;
     timeout = setTimeout(closeErrorWindow, 2000);
 }
-
 
 const charactersAllowed = {
     binary: "01",
@@ -44,9 +47,7 @@ inputs.forEach((input) => {
     };
 
     input.onfocus = () => {
-        input.parentElement
-            .querySelector(".explain")
-            .setAttribute("hidden", "true");
+        input.parentElement.querySelector(".explain").setAttribute("hidden", "true");
     };
     input.onblur = () => {
         input.parentElement.querySelector(".explain").removeAttribute("hidden");
@@ -74,10 +75,7 @@ inputs.forEach((input) => {
             if (character != " ") handleInvalidCharacter(character, input.id);
             if (character) {
                 input.value = input.value.replaceAll(character, "");
-                inputEvent.target.setSelectionRange(
-                    cursorPosition - 1,
-                    cursorPosition - 1
-                );
+                inputEvent.target.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
             }
         }
 
@@ -89,29 +87,5 @@ inputs.forEach((input) => {
         }
     };
 });
-
-// conversion functions
-
-// const decimal = {
-//     binary: (number) => {
-//         let explData = `<h3>Convert (${number})<sub>10</sub> to binary</h3>`;
-//         explData +=
-//             '<h4>Step 1:</h4> Repeatedly divide the number by 2 and note down remainders till the dividend becomes 0 <br><table border="1" >';
-//         let quotient = BigInt(number);
-//         let divisor = 2n;
-//         let result = [];
-//         let remainder;
-//         while (quotient) {
-//             remainder = quotient % divisor;
-//             explData += `<tr><td>2</td> <td>${quotient}</td> <td>${remainder}</td></tr>`;
-//             quotient = quotient / divisor;
-//             result.push(remainder.toString());
-//         }
-//         explData +=
-//             '<tr><td></td><td>0</td><td></td></tr></table> <img src="./images/arrow.svg">';
-//         expl.innerHTML = explData;
-//         return result.reverse().join("");
-//     },
-// };
 
 onresize = updatebg;

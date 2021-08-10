@@ -16,12 +16,8 @@ body {
     /* background-color: #ffffff73; */
     background-size: cover;
     font-family: sans-serif;
-    overflow: hidden;
 }
 
-html {
-    overflow: hidden;
-}
 
 #error {
     border-radius: 0.4em;
