@@ -1,7 +1,7 @@
 const errorWindow = document.getElementById("error");
 const errorText = errorWindow.lastElementChild;
 
-const errorSound = new Audio("./sounds/error.mp3");
+const errorSound = new Audio("./sounds/error2.mp3");
 
 function closeErrorWindow() {
     errorWindow.style.opacity = "0";
@@ -18,6 +18,7 @@ function handleInvalidCharacter(character, base) {
     errorSound.play();
     setTimeout(() => {
         errorWindow.style.opacity = "1";
+    navigator.vibrate([100,60,70])
     }, 15);
     errorText.textContent = `"${character}" is not allowed in ${base}.`;
     timeout = setTimeout(closeErrorWindow, 2000);
