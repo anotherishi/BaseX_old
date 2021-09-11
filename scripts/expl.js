@@ -1,494 +1,61 @@
 let expltitle = document.getElementById("expl-title"),
     explcontent = document.getElementById("expl-content");
 
+let bs = {
+    2: "Binary",
+    8: "Octal",
+    10: "Decimal",
+    16: "HexaDecimal",
+};
+
 const expls = {
-    dec: {
-        bin: (n) => {
-            explcontent.replaceChildren();
-            expltitle.textContent = `Represent (${n})`;
-            let bas = document.createElement("sub");
-            bas.textContent = "10";
-            explcontent.textContent += "in Binary.";
+    dec(n, b) {
+        explheaderset(n,10,b)
 
-            let step1 = document.createElement("div");
-            step1.classList.add("step");
+        let step1 = document.createElement("div");
+        step1.classList.add("step");
 
-            let step1Header = document.createElement("div");
-            step1Header.classList.add("step-header");
+        let step1Header = document.createElement("div");
+        step1Header.classList.add("step-header");
 
-            let step1No = document.createElement("div");
-            step1No.classList.add("stepno");
-            step1No.textContent = "1)";
+        let step1No = document.createElement("div");
+        step1No.classList.add("stepno");
+        step1No.textContent = "1)";
 
-            let step1Title = document.createElement("div");
-            step1Title.classList.add("step-title");
-            step1Title.textContent = `Repeatedly divide ${n} by 2 until the dividend becomes 0, and note down the remainders.`;
+        let step1Title = document.createElement("div");
+        step1Title.classList.add("step-title");
+        step1Title.textContent = `Repeatedly divide ${n} by ${b} until the dividend becomes 0, and note down the remainders.`;
 
-            step1Header.appendChild(step1No);
-            step1Header.appendChild(step1Title);
-            step1.appendChild(step1Header);
+        step1Header.appendChild(step1No);
+        step1Header.appendChild(step1Title);
+        step1.appendChild(step1Header);
 
-            let step1Body = document.createElement("div");
-            step1Body.classList.add("step-body");
+        let step1Body = document.createElement("div");
+        step1Body.classList.add("step-body");
 
-            let divTable1 = document.createElement("div");
-            divTable1.classList.add("div-table");
+        let divTable1 = document.createElement("div");
+        divTable1.classList.add("div-table");
 
-            let col1 = document.createElement("div");
-            let col2 = document.createElement("div");
-            let col3 = document.createElement("div");
-            col1.classList.add("div-table-col");
-            col2.classList.add("div-table-col");
-            col2.classList.add("brd");
-            col3.classList.add("div-table-col");
-            col3.classList.add("brd");
+        let col1 = document.createElement("div");
+        let col2 = document.createElement("div");
+        let col3 = document.createElement("div");
+        col1.classList.add("div-table-col");
+        col2.classList.add("div-table-col");
+        col2.classList.add("brd");
+        col3.classList.add("div-table-col");
+        col3.classList.add("brd");
 
-            let q = BigInt(n);
-            let r,
-                res = [];
-            let di = 2n;
+        let q = BigInt(n);
+        let r,
+            res = [];
+        let di = BigInt(b);
+        if (b == 16)
             while (q) {
                 r = q % di;
 
                 let c1 = document.createElement("div");
                 c1.classList.add("div-table-cell");
-                c1.textContent = "2";
-
-                let c2 = document.createElement("div");
-                c2.classList.add("div-table-cell");
-                c2.textContent = q;
-
-                let c3 = document.createElement("div");
-                c3.classList.add("div-table-cell");
-                c3.textContent = r;
-
-                col1.appendChild(c1);
-                col2.appendChild(c2);
-                col3.appendChild(c3);
-
-                q /= di;
-                res.push(r.toString());
-            }
-            let result = res.reverse();
-
-            let zeroDiv = document.createElement("div");
-            zeroDiv.textContent = "0";
-            col2.appendChild(zeroDiv);
-
-            divTable1.appendChild(col1);
-            divTable1.appendChild(col2);
-            divTable1.appendChild(col3);
-
-            let arrhead = document.createElement("div");
-            arrhead.classList.add("arrhead");
-            let arrtail = document.createElement("div");
-            arrtail.classList.add("arrtail");
-            let col4 = document.createElement("div");
-            // col4.style.backgroundImage = "url(./images/arrow.svg)";
-            col4.classList.add("arrow");
-            col4.appendChild(arrhead);
-            col4.appendChild(arrtail);
-
-            divTable1.appendChild(col4);
-
-            step1Body.appendChild(divTable1);
-            step1.appendChild(step1Body);
-            explcontent.appendChild(step1);
-
-            let step2 = document.createElement("div");
-            step2.classList.add("step");
-
-            let step2Header = document.createElement("div");
-            step2Header.classList.add("step-header");
-
-            let step2No = document.createElement("div");
-            step2No.classList.add("stepno");
-            step2No.textContent = "2)";
-
-            let step2Title = document.createElement("div");
-            step2Title.classList.add("step-title");
-            step2Title.textContent = "Write the remainders as directed by the arrow.";
-
-            step2Header.appendChild(step2No);
-            step2Header.appendChild(step2Title);
-            step2.appendChild(step2Header);
-
-            let step2Body = document.createElement("div");
-            step2Body.classList.add("step-body");
-
-            let remtable = document.createElement("div");
-            remtable.classList.add("remtable");
-
-            let arrright = document.createElement("div");
-            arrright.classList.add("arrright");
-
-            let arrrighttail = document.createElement("div");
-            arrrighttail.classList.add("arrrighttail");
-            let arrrighthead = document.createElement("div");
-            arrrighthead.classList.add("arrrighthead");
-
-            arrright.appendChild(arrrighttail);
-            arrright.appendChild(arrrighthead);
-
-            remtable.appendChild(arrright);
-
-            let rems = document.createElement("div");
-            rems.classList.add("rems");
-
-            result.forEach((rem) => {
-                let remi = document.createElement("div");
-                remi.textContent = rem;
-                rems.appendChild(remi);
-            });
-
-            remtable.appendChild(rems);
-
-            step2Body.appendChild(remtable);
-
-            step2.appendChild(step2Body);
-            explcontent.appendChild(step2);
-
-            let step3 = document.createElement("div");
-            step3.classList.add("step");
-
-            let step3Header = document.createElement("div");
-            step3Header.classList.add("step-header");
-
-            let step3No = document.createElement("div");
-            step3No.classList.add("stepno");
-            step3No.textContent = "3)";
-
-            let step3Title = document.createElement("div");
-            step3Title.classList.add("step-title");
-            step3Title.textContent = "And it's done!";
-
-            step3Header.appendChild(step3No);
-            step3Header.appendChild(step3Title);
-            step3.appendChild(step3Header);
-
-            let step3Body = document.createElement("div");
-            step3Body.classList.add("step-body");
-
-            let resultDiv = document.createElement("div");
-            resultDiv.classList.add("resdiv");
-
-            let popen = document.createElement("div");
-            popen.textContent = "(";
-
-            let decnum = document.createElement("div");
-            decnum.textContent = n;
-
-            let pclose = document.createElement("div");
-            pclose.textContent = ")";
-
-            let b = document.createElement("sub");
-            b.textContent = "10";
-
-            pclose.appendChild(b);
-
-            resultDiv.appendChild(popen);
-            resultDiv.appendChild(decnum);
-            resultDiv.appendChild(pclose);
-
-            let eq = document.createElement("div");
-            eq.textContent = "=";
-
-            resultDiv.appendChild(eq);
-
-            popen = document.createElement("div");
-            popen.textContent = "(";
-
-            let binnum = document.createElement("div");
-            binnum.textContent = result.join("");
-
-            pclose = document.createElement("div");
-            pclose.textContent = ")";
-
-            resultDiv.appendChild(popen);
-            resultDiv.appendChild(binnum);
-
-            b = document.createElement("sub");
-            b.textContent = "2";
-
-            pclose.appendChild(b);
-
-            resultDiv.appendChild(pclose);
-
-            step3Body.appendChild(resultDiv);
-            step3.appendChild(step3Body);
-            explcontent.appendChild(step3);
-        },
-
-        oct: (n) => {
-            explcontent.replaceChildren();
-
-            expltitle.textContent = `Represent (${n})`;
-            let bas = document.createElement("sub");
-            bas.textContent = "10";
-            expltitle.appendChild(bas)
-            expltitle.appendChild(document.createTextNode(" in Octal."));
-
-            let step1 = document.createElement("div");
-            step1.classList.add("step");
-
-            let step1Header = document.createElement("div");
-            step1Header.classList.add("step-header");
-
-            let step1No = document.createElement("div");
-            step1No.classList.add("stepno");
-            step1No.textContent = "1)";
-
-            let step1Title = document.createElement("div");
-            step1Title.classList.add("step-title");
-            step1Title.textContent = `Repeatedly divide ${n} by 8 until the dividend becomes 0, and note down the remainders.`;
-
-            step1Header.appendChild(step1No);
-            step1Header.appendChild(step1Title);
-            step1.appendChild(step1Header);
-
-            let step1Body = document.createElement("div");
-            step1Body.classList.add("step-body");
-
-            let divTable1 = document.createElement("div");
-            divTable1.classList.add("div-table");
-
-            let col1 = document.createElement("div");
-            let col2 = document.createElement("div");
-            let col3 = document.createElement("div");
-            col1.classList.add("div-table-col");
-            col2.classList.add("div-table-col");
-            col2.classList.add("brd");
-            col3.classList.add("div-table-col");
-            col3.classList.add("brd");
-
-            let q = BigInt(n);
-            let r,
-                res = [];
-            let di = 8n;
-            while (q) {
-                r = q % di;
-
-                let c1 = document.createElement("div");
-                c1.classList.add("div-table-cell");
-                c1.textContent = "8";
-
-                let c2 = document.createElement("div");
-                c2.classList.add("div-table-cell");
-                c2.textContent = q;
-
-                let c3 = document.createElement("div");
-                c3.classList.add("div-table-cell");
-                c3.textContent = r;
-
-                col1.appendChild(c1);
-                col2.appendChild(c2);
-                col3.appendChild(c3);
-
-                q /= di;
-                res.push(r.toString());
-            }
-            let result = res.reverse();
-
-            let zeroDiv = document.createElement("div");
-            zeroDiv.textContent = "0";
-            col2.appendChild(zeroDiv);
-
-            divTable1.appendChild(col1);
-            divTable1.appendChild(col2);
-            divTable1.appendChild(col3);
-
-            let arrhead = document.createElement("div");
-            arrhead.classList.add("arrhead");
-            let arrtail = document.createElement("div");
-            arrtail.classList.add("arrtail");
-            let col4 = document.createElement("div");
-            // col4.style.backgroundImage = "url(./images/arrow.svg)";
-            col4.classList.add("arrow");
-            col4.appendChild(arrhead);
-            col4.appendChild(arrtail);
-
-            divTable1.appendChild(col4);
-
-            step1Body.appendChild(divTable1);
-            step1.appendChild(step1Body);
-            explcontent.appendChild(step1);
-
-            let step2 = document.createElement("div");
-            step2.classList.add("step");
-
-            let step2Header = document.createElement("div");
-            step2Header.classList.add("step-header");
-
-            let step2No = document.createElement("div");
-            step2No.classList.add("stepno");
-            step2No.textContent = "2)";
-
-            let step2Title = document.createElement("div");
-            step2Title.classList.add("step-title");
-            step2Title.textContent = "Write the remainders as directed by the arrow.";
-
-            step2Header.appendChild(step2No);
-            step2Header.appendChild(step2Title);
-            step2.appendChild(step2Header);
-
-            let step2Body = document.createElement("div");
-            step2Body.classList.add("step-body");
-
-            let remtable = document.createElement("div");
-            remtable.classList.add("remtable");
-
-            let arrright = document.createElement("div");
-            arrright.classList.add("arrright");
-
-            let arrrighttail = document.createElement("div");
-            arrrighttail.classList.add("arrrighttail");
-            let arrrighthead = document.createElement("div");
-            arrrighthead.classList.add("arrrighthead");
-
-            arrright.appendChild(arrrighttail);
-            arrright.appendChild(arrrighthead);
-
-            remtable.appendChild(arrright);
-
-            let rems = document.createElement("div");
-            rems.classList.add("rems");
-
-            result.forEach((rem) => {
-                let remi = document.createElement("div");
-                remi.textContent = rem;
-                rems.appendChild(remi);
-            });
-
-            remtable.appendChild(rems);
-
-            step2Body.appendChild(remtable);
-
-            step2.appendChild(step2Body);
-            explcontent.appendChild(step2);
-
-            let step3 = document.createElement("div");
-            step3.classList.add("step");
-
-            let step3Header = document.createElement("div");
-            step3Header.classList.add("step-header");
-
-            let step3No = document.createElement("div");
-            step3No.classList.add("stepno");
-            step3No.textContent = "3)";
-
-            let step3Title = document.createElement("div");
-            step3Title.classList.add("step-title");
-            step3Title.textContent = "And it's done!";
-
-            step3Header.appendChild(step3No);
-            step3Header.appendChild(step3Title);
-            step3.appendChild(step3Header);
-
-            let step3Body = document.createElement("div");
-            step3Body.classList.add("step-body");
-
-            let resultDiv = document.createElement("div");
-            resultDiv.classList.add("resdiv");
-
-            let popen = document.createElement("div");
-            popen.textContent = "(";
-
-            let decnum = document.createElement("div");
-            decnum.textContent = n;
-
-            let pclose = document.createElement("div");
-            pclose.textContent = ")";
-
-            let b = document.createElement("sub");
-            b.textContent = "10";
-
-            pclose.appendChild(b);
-
-            resultDiv.appendChild(popen);
-            resultDiv.appendChild(decnum);
-            resultDiv.appendChild(pclose);
-
-            let eq = document.createElement("div");
-            eq.textContent = "=";
-
-            resultDiv.appendChild(eq);
-
-            popen = document.createElement("div");
-            popen.textContent = "(";
-
-            let binnum = document.createElement("div");
-            binnum.textContent = result.join("");
-
-            pclose = document.createElement("div");
-            pclose.textContent = ")";
-
-            resultDiv.appendChild(popen);
-            resultDiv.appendChild(binnum);
-
-            b = document.createElement("sub");
-            b.textContent = "8";
-
-            pclose.appendChild(b);
-
-            resultDiv.appendChild(pclose);
-
-            step3Body.appendChild(resultDiv);
-            step3.appendChild(step3Body);
-            explcontent.appendChild(step3);
-        },
-
-        hex: (n) => {
-            explcontent.replaceChildren();
-
-            expltitle.textContent = `Represent (${n})`;
-            let bas = document.createElement("sub");
-            bas.textContent = "10";
-            expltitle.appendChild(bas)
-            explcontent.textContent += "in HexaDecimal.";
-
-            let step1 = document.createElement("div");
-            step1.classList.add("step");
-
-            let step1Header = document.createElement("div");
-            step1Header.classList.add("step-header");
-
-            let step1No = document.createElement("div");
-            step1No.classList.add("stepno");
-            step1No.textContent = "1)";
-
-            let step1Title = document.createElement("div");
-            step1Title.classList.add("step-title");
-            step1Title.textContent = `Repeatedly divide ${n} by 16 until the dividend becomes 0, and note down the remainders.`;
-
-            step1Header.appendChild(step1No);
-            step1Header.appendChild(step1Title);
-            step1.appendChild(step1Header);
-
-            let step1Body = document.createElement("div");
-            step1Body.classList.add("step-body");
-
-            let divTable1 = document.createElement("div");
-            divTable1.classList.add("div-table");
-
-            let col1 = document.createElement("div");
-            let col2 = document.createElement("div");
-            let col3 = document.createElement("div");
-            col1.classList.add("div-table-col");
-            col2.classList.add("div-table-col");
-            col2.classList.add("brd");
-            col3.classList.add("div-table-col");
-            col3.classList.add("brd");
-
-            let q = BigInt(n);
-            let r,
-                res = [];
-            let di = 16n;
-            while (q) {
-                r = q % di;
-
-                let c1 = document.createElement("div");
-                c1.classList.add("div-table-cell");
-                c1.textContent = "8";
+                c1.textContent = "16";
 
                 let c2 = document.createElement("div");
                 c2.classList.add("div-table-cell");
@@ -505,166 +72,141 @@ const expls = {
                 q /= di;
                 res.push(hexDef1[r.toString()]);
             }
-            let result = res.reverse();
+        else
+            while (q) {
+                r = q % di;
 
-            let zeroDiv = document.createElement("div");
-            zeroDiv.textContent = "0";
-            col2.appendChild(zeroDiv);
+                let c1 = document.createElement("div");
+                c1.classList.add("div-table-cell");
+                c1.textContent = b;
 
-            divTable1.appendChild(col1);
-            divTable1.appendChild(col2);
-            divTable1.appendChild(col3);
+                let c2 = document.createElement("div");
+                c2.classList.add("div-table-cell");
+                c2.textContent = q;
 
-            let arrhead = document.createElement("div");
-            arrhead.classList.add("arrhead");
-            let arrtail = document.createElement("div");
-            arrtail.classList.add("arrtail");
-            let col4 = document.createElement("div");
-            // col4.style.backgroundImage = "url(./images/arrow.svg)";
-            col4.classList.add("arrow");
-            col4.appendChild(arrhead);
-            col4.appendChild(arrtail);
+                let c3 = document.createElement("div");
+                c3.classList.add("div-table-cell");
+                c3.textContent = r;
 
-            divTable1.appendChild(col4);
+                col1.appendChild(c1);
+                col2.appendChild(c2);
+                col3.appendChild(c3);
 
-            step1Body.appendChild(divTable1);
-            step1.appendChild(step1Body);
-            explcontent.appendChild(step1);
+                q /= di;
+                res.push(r.toString());
+            }
+        let result = res.reverse();
 
-            let step2 = document.createElement("div");
-            step2.classList.add("step");
+        let zeroDiv = document.createElement("div");
+        zeroDiv.textContent = "0";
+        col2.appendChild(zeroDiv);
 
-            let step2Header = document.createElement("div");
-            step2Header.classList.add("step-header");
+        divTable1.appendChild(col1);
+        divTable1.appendChild(col2);
+        divTable1.appendChild(col3);
 
-            let step2No = document.createElement("div");
-            step2No.classList.add("stepno");
-            step2No.textContent = "2)";
+        let arrhead = document.createElement("div");
+        arrhead.classList.add("arrhead");
+        let arrtail = document.createElement("div");
+        arrtail.classList.add("arrtail");
+        // col4 is the arrow
+        let col4 = document.createElement("div");
+        // col4.style.backgroundImage = "url(./images/arrow.svg)";
+        // col4.classList.add("arrow");
+        // col4.appendChild(arrhead);
+        // col4.appendChild(arrtail);
+        divTable1.appendChild(col4);
 
-            let step2Title = document.createElement("div");
-            step2Title.classList.add("step-title");
-            step2Title.textContent = "Write the remainders as directed by the arrow.";
+        step1Body.appendChild(divTable1);
+        step1.appendChild(step1Body);
+        explcontent.appendChild(step1);
 
-            step2Header.appendChild(step2No);
-            step2Header.appendChild(step2Title);
-            step2.appendChild(step2Header);
+        let step2 = document.createElement("div");
+        step2.classList.add("step");
 
-            let step2Body = document.createElement("div");
-            step2Body.classList.add("step-body");
+        let step2Header = document.createElement("div");
+        step2Header.classList.add("step-header");
 
-            let remtable = document.createElement("div");
-            remtable.classList.add("remtable");
+        let step2No = document.createElement("div");
+        step2No.classList.add("stepno");
+        step2No.textContent = "2)";
 
-            let arrright = document.createElement("div");
-            arrright.classList.add("arrright");
+        let step2Title = document.createElement("div");
+        step2Title.classList.add("step-title");
+        step2Title.textContent = "Write the remainders as directed by the arrow.";
 
-            let arrrighttail = document.createElement("div");
-            arrrighttail.classList.add("arrrighttail");
-            let arrrighthead = document.createElement("div");
-            arrrighthead.classList.add("arrrighthead");
+        step2Header.appendChild(step2No);
+        step2Header.appendChild(step2Title);
+        step2.appendChild(step2Header);
 
-            arrright.appendChild(arrrighttail);
-            arrright.appendChild(arrrighthead);
+        let step2Body = document.createElement("div");
+        step2Body.classList.add("step-body");
 
-            remtable.appendChild(arrright);
+        let remtable = document.createElement("div");
+        remtable.classList.add("remtable");
 
-            let rems = document.createElement("div");
-            rems.classList.add("rems");
+        let arrright = document.createElement("div");
+        arrright.classList.add("arrright");
+        // arrright is an arrow
 
-            result.forEach((rem) => {
-                let remi = document.createElement("div");
-                remi.textContent = rem;
-                rems.appendChild(remi);
-            });
+        remtable.appendChild(arrright);
 
-            remtable.appendChild(rems);
+        let rems = document.createElement("div");
+        rems.classList.add("rems");
 
-            step2Body.appendChild(remtable);
+        result.forEach((rem) => {
+            let remi = document.createElement("div");
+            remi.textContent = rem;
+            rems.appendChild(remi);
+        });
 
-            step2.appendChild(step2Body);
-            explcontent.appendChild(step2);
+        remtable.appendChild(rems);
 
-            let step3 = document.createElement("div");
-            step3.classList.add("step");
+        step2Body.appendChild(remtable);
 
-            let step3Header = document.createElement("div");
-            step3Header.classList.add("step-header");
+        step2.appendChild(step2Body);
+        explcontent.appendChild(step2);
 
-            let step3No = document.createElement("div");
-            step3No.classList.add("stepno");
-            step3No.textContent = "3)";
+        let step3 = document.createElement("div");
+        step3.classList.add("step");
 
-            let step3Title = document.createElement("div");
-            step3Title.classList.add("step-title");
-            step3Title.textContent = "And it's done!";
+        let step3Header = document.createElement("div");
+        step3Header.classList.add("step-header");
 
-            step3Header.appendChild(step3No);
-            step3Header.appendChild(step3Title);
-            step3.appendChild(step3Header);
+        let step3No = document.createElement("div");
+        step3No.classList.add("stepno");
+        step3No.textContent = "3)";
 
-            let step3Body = document.createElement("div");
-            step3Body.classList.add("step-body");
+        let step3Title = document.createElement("div");
+        step3Title.classList.add("step-title");
+        step3Title.textContent = "And it's done!";
 
-            let resultDiv = document.createElement("div");
-            resultDiv.classList.add("resdiv");
+        step3Header.appendChild(step3No);
+        step3Header.appendChild(step3Title);
+        step3.appendChild(step3Header);
 
-            let popen = document.createElement("div");
-            popen.textContent = "(";
+        let step3Body = document.createElement("div");
+        step3Body.classList.add("step-body");
+        step3Body.classList.add("resd");
 
-            let decnum = document.createElement("div");
-            decnum.textContent = n;
+        let resultDiv = document.createElement("div");
+        resultDiv.classList.add("resdiv");
 
-            let pclose = document.createElement("div");
-            pclose.textContent = ")";
+        step3Body.appendChild(document.createTextNode(`(${n})`));
+        let bas1 = document.createElement("sub");
+        bas1.textContent = "10";
+        step3Body.appendChild(bas1);
+        step3Body.appendChild(document.createTextNode(` = (${result.join("")})`));
+        let bas2 = document.createElement("sub");
+        bas2.textContent = b;
+        step3Body.appendChild(bas2);
 
-            let b = document.createElement("sub");
-            b.textContent = "10";
-
-            pclose.appendChild(b);
-
-            resultDiv.appendChild(popen);
-            resultDiv.appendChild(decnum);
-            resultDiv.appendChild(pclose);
-
-            let eq = document.createElement("div");
-            eq.textContent = "=";
-
-            resultDiv.appendChild(eq);
-
-            popen = document.createElement("div");
-            popen.textContent = "(";
-
-            let binnum = document.createElement("div");
-            binnum.textContent = result.join("");
-
-            pclose = document.createElement("div");
-            pclose.textContent = ")";
-
-            resultDiv.appendChild(popen);
-            resultDiv.appendChild(binnum);
-
-            b = document.createElement("sub");
-            b.textContent = "16";
-
-            pclose.appendChild(b);
-
-            resultDiv.appendChild(pclose);
-
-            step3Body.appendChild(resultDiv);
-            step3.appendChild(step3Body);
-            explcontent.appendChild(step3);
-        },
+        step3.appendChild(step3Body);
+        explcontent.appendChild(step3);
     },
+
     bin: {
         oct: (n) => {
-            expltitle.replaceChildren();
-            explcontent.replaceChildren();
-            expltitle.textContent = `Represent (${n})`;
-            let bas = document.createElement("sub");
-            bas.textContent = "2";
-            expltitle.appendChild(bas)
-            expltitle.appendChild(document.createTextNode(" in Octal."));
-
             let step1 = document.createElement("div");
             step1.classList.add("step");
 
@@ -687,19 +229,19 @@ const expls = {
             step1Body.classList.add("step-body");
 
             let chunktable = document.createElement("div");
-            chunktable.classList.add('chunktable')
+            chunktable.classList.add("chunktable");
 
-            chunk(n, 3).forEach(c=> {
+            chunk(n, 3).forEach((c) => {
                 let chunkdiv = document.createElement("div");
-                chunkdiv.textContent = c
-                chunktable.appendChild(chunkdiv)
-            })
+                chunkdiv.textContent = c;
+                chunktable.appendChild(chunkdiv);
+            });
 
-            step1Body.appendChild(chunktable)
+            step1Body.appendChild(chunktable);
 
-            step1.appendChild(step1Body)
+            step1.appendChild(step1Body);
 
-            explcontent.appendChild(step1)
+            explcontent.appendChild(step1);
 
             let step2 = document.createElement("div");
             step2.classList.add("step");
@@ -723,21 +265,32 @@ const expls = {
             step2Body.classList.add("step-body");
 
             chunktable = document.createElement("div");
-            chunktable.classList.add('chunktable')
+            chunktable.classList.add("chunktable");
 
-            chunk(n, 3).forEach(c=> {
+            chunk(n, 3).forEach((c) => {
                 let chunkdiv = document.createElement("div");
-                chunkdiv.textContent = c
-                chunktable.appendChild(chunkdiv)
-            })
+                chunkdiv.textContent = c;
+                chunktable.appendChild(chunkdiv);
+            });
 
-            step2Body.appendChild(chunktable)
+            step2Body.appendChild(chunktable);
 
-            step2.appendChild(step2Body)
+            step2.appendChild(step2Body);
 
-            explcontent.appendChild(step2)
-        }
-    }
+            explcontent.appendChild(step2);
+        },
+        dec(n) {},
+    },
 };
 
-expls.bin.oct('10101101011110')
+function explheaderset(n, f, t) {
+    explcontent.replaceChildren();
+    expltitle.replaceChildren();
+    expltitle.appendChild(document.createTextNode(`Represent (${n})`));
+    let bas = document.createElement("sub");
+    bas.textContent = f;
+    expltitle.appendChild(bas);
+    expltitle.appendChild(document.createTextNode(` in ${bs[t]}.`));
+}
+
+expls.dec("4095", 16);

@@ -14,11 +14,4 @@ var pattern = t.generate(window.innerWidth, window.innerHeight);
 // )[0].style.backgroundImage = pattern.dataUrl;
 document.body.style.backgroundImage = pattern.dataUrl;
 
-function updatebg() {
-    console.log('bg change');
-    document.body.style.backgroundImage = new Trianglify({
-        x_gradient: Trianglify.colorbrewer,
-        noiseIntensity: 0,
-        cellsize: 80,
-    }).generate(window.innerWidth, window.innerHeight).dataUrl;
-}
+

@@ -1,23 +1,4 @@
-#expl-overlay{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #3d3d3d5d;
-}
 
-#expl {
-    width: 70vw;
-    height: 80vh;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    overflow-y: scroll;
-}
 
 #expl-header {
     width: 100%;
@@ -118,7 +99,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding-right: 2vh;
+    /* padding-right: 2vh; */
 }
 
 .arrrighthead {
@@ -131,7 +112,7 @@
 }
 
 .arrrighttail {
-    width: 100%;
+    width: 120%;
     height: .1em;
     background-color: black;
     transform: translate(2.3vh, -0.2vh);
@@ -151,6 +132,16 @@
 
 .resdiv {
     display: flex;
+
+}
+
+.resd{
+    display: block;
+    text-align: center;
+    /* flex-direction: row;
+    height: 1.5em;
+    align-items: center;
+    justify-content: center; */
 }
 
 

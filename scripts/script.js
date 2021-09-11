@@ -1,27 +1,34 @@
-const errorWindow = document.getElementById("error");
-const errorText = errorWindow.lastElementChild;
+const alertBox = document.getElementById("alert");
+const alertText = alertBox.lastElementChild;
+const errorImg = document.getElementById("error-img");
+const infoImg = document.getElementById("info-img");
 
 const errorSound = new Audio("./sounds/error2.mp3");
+// errorSound.volume = 0.6;
 
-function closeErrorWindow() {
-    errorWindow.style.opacity = "0";
+function closealertBox() {
+    alertBox.style.opacity = "0";
     setTimeout(() => {
-        errorWindow.setAttribute("hidden", "");
+        alertBox.setAttribute("hidden", "");
+        errorImg.setAttribute("hidden", "");
+        infoImg.setAttribute("hidden", "");
     }, 500);
 }
 
 let timeout = 0;
 function handleInvalidCharacter(character, base) {
-    errorWindow.removeAttribute("hidden");
+    infoImg.setAttribute("hidden", "");
+    errorImg.removeAttribute("hidden");
+    alertBox.removeAttribute("hidden");
     clearTimeout(timeout);
-    errorSound.currentTime = 0
+    errorSound.currentTime = 0;
     errorSound.play();
     setTimeout(() => {
-        errorWindow.style.opacity = "1";
-    navigator.vibrate([100,60,70])
+        alertBox.style.opacity = "1";
+        navigator.vibrate(250);
     }, 15);
-    errorText.textContent = `"${character}" is not allowed in ${base}.`;
-    timeout = setTimeout(closeErrorWindow, 2000);
+    alertText.textContent = `"${character}" is not allowed in ${base}.`;
+    timeout = setTimeout(closealertBox, 2000);
 }
 
 const charactersAllowed = {
@@ -40,11 +47,12 @@ inputs.forEach((input) => {
     input.value = "0";
 
     input.parentElement.querySelector(".copy").onclick = () => {
-        let length = input.value.length;
+        let curpos = input.selectionStart;
         input.select();
         document.execCommand("copy");
-        input.setSelectionRange(length, length);
-        input.blur();
+        navigator.vibrate([70, 40, 40]);
+        input.focus();
+        input.setSelectionRange(curpos, curpos);
     };
 
     input.onfocus = () => {
@@ -89,4 +97,10 @@ inputs.forEach((input) => {
     };
 });
 
-onresize = updatebg;
+onload = onresize = function () {
+    document.body.style.backgroundImage = new Trianglify({
+        x_gradient: Trianglify.colorbrewer,
+        noiseIntensity: 0,
+        cellsize: 80,
+    }).generate(window.innerWidth, window.innerHeight).dataUrl;
+};
