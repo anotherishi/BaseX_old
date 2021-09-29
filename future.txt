@@ -1,3 +1,0 @@
-add animation to explanation steps
-add sound effects
-add floating point support
