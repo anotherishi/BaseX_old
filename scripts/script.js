@@ -3,8 +3,14 @@ const alertText = alertBox.lastElementChild;
 const errorImg = document.getElementById("error-img");
 const infoImg = document.getElementById("info-img");
 
+const explClose = document.getElementById("expl-close");
+const explOverlay = document.getElementById("expl-overlay");
+
+explClose.onclick = (clickEvent) => {
+    explOverlay.setAttribute("hidden", "");
+};
+
 const errorSound = new Audio("./sounds/error2.mp3");
-// errorSound.volume = 0.6;
 
 function closealertBox() {
     alertBox.style.opacity = "0";
@@ -47,22 +53,35 @@ inputs.forEach((input) => {
     input.value = "0";
 
     input.parentElement.querySelector(".copy").onclick = () => {
-        let curpos = input.selectionStart;
-        input.select();
-        document.execCommand("copy");
-        navigator.vibrate([70, 40, 40]);
+        alert(navigator.clipboard)
+         let curpos = input.selectionStart;
+    input.select();
+    document.execCommand("copy");
+    input.setSelectionRange(curpos, curpos);
+        // navigator.clipboard
+        //     .writeText(input.value)
+        //     .then(() => navigator.vibrate([70, 40, 40]));
         input.focus();
-        input.setSelectionRange(curpos, curpos);
     };
 
     input.onfocus = () => {
-        input.parentElement.querySelector(".explain").setAttribute("hidden", "true");
+        input.parentElement
+            .querySelector(".explain")
+            .setAttribute("hidden", "true");
     };
     input.onblur = () => {
         input.parentElement.querySelector(".explain").removeAttribute("hidden");
     };
 
+    // input.onkeydown = function(event) {
+    //     var key = event.keyCode || event.charCode;
+    
+    //     if( key == 8 || key == 46 )
+    //         return false;
+    // };
+
     input.oninput = (inputEvent) => {
+        // alert(inputEvent.inputType)
         console.log(inputEvent);
         let character = inputEvent.data;
         let cursorPosition = inputEvent.target.selectionStart;
@@ -84,7 +103,10 @@ inputs.forEach((input) => {
             if (character != " ") handleInvalidCharacter(character, input.id);
             if (character) {
                 input.value = input.value.replaceAll(character, "");
-                inputEvent.target.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+                inputEvent.target.setSelectionRange(
+                    cursorPosition - 1,
+                    cursorPosition - 1
+                );
             }
         }
 
@@ -94,13 +116,20 @@ inputs.forEach((input) => {
             });
             inputEvent.target.setSelectionRange(1, 1);
         }
+
+        if (input.value == "0" && inputEvent.inputType === "deleteContentBackward") {
+            setTimeout(() => {
+                inputEvent.target.setSelectionRange(1, 1);
+            }, 10);
+            // alert()
+        }
     };
 });
 
-onload = onresize = function () {
+onload = onresize = async function () {
     document.body.style.backgroundImage = new Trianglify({
         x_gradient: Trianglify.colorbrewer,
-        noiseIntensity: 0,
-        cellsize: 80,
+        noiseIntensity: 0.2,
+        cellsize: 30,
     }).generate(window.innerWidth, window.innerHeight).dataUrl;
 };

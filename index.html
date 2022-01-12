@@ -10,28 +10,24 @@
         <link rel="stylesheet" href="./stylesheets/main.css" />
         <link rel="stylesheet" href="./stylesheets/expl.css">
 
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.5/trianglify.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/3.0.0/trianglify.min.js" integrity="sha512-rjQcHsP3OLGWVRNiLLBeupOT+luccTXECmZvxA4jc9uZfBr/qkML4uTGqQbypT3YZ5psW9C/SQUolxFjx6mxwg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.0.0/d3.min.js" integrity="sha512-0x7/VCkKLLt4wnkFqI8Cgv6no+AaS1TDgmHLOoU3hy/WVtYta2J6gnOIHhYYDJlDxPqEqAYLPS4gzVex4mGJLw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
+    
         <script src="./scripts/d3andTrianglify.js"></script>
 
         <title>BaseX</title>
     </head>
     <body>
         <div id="alert" hidden>
-            <img id="error-img" class="alert-img" src="./images/exclamation.svg" />
+            <!-- <img id="error-img" class="alert-img" src="./images/exclamation.svg" /> -->
+            <div id="error-img" class="alert-img">!</div>
             <img id="info-img" class="alert-img" src="./images/info.svg" >
             <div></div>
         </div>
 
-        <div id="expl-overlay" >
+        <div id="expl-overlay" hidden>
             <div id="expl">
                 <div id="expl-header">
-                    <div id="expl-title">126143 to decimal</div>
-                    <span>❌</span>
-                    <!-- <img src="./images/cross.svg" /> -->
+                    <div id="expl-title"></div>
+                    <span id="expl-close">❌</span>
                 </div>
                 <div id="expl-content"></div>
             </div>
@@ -49,7 +45,7 @@
                 <div class="info">
                     <div class="base">Binary</div>
                     <div class="options">
-                        <img class="copy" src="./images/copy4.png" />
+                        <img class="copy" src="./images/copy.png" />
                         <img src="./images/explaination.png" class="explain" />
                     </div>
                 </div>
@@ -59,7 +55,7 @@
                 <div class="info">
                     <div class="base">Octal</div>
                     <div class="options">
-                        <img class="copy" src="./images/copy4.png" />
+                        <img class="copy" src="./images/copy.png" />
                         <img src="./images/explaination.png" class="explain" />
                     </div>
                 </div>
@@ -69,7 +65,7 @@
                 <div class="info">
                     <div class="base">Decimal</div>
                     <div class="options">
-                        <img class="copy" src="./images/copy4.png" />
+                        <img class="copy" src="./images/copy.png" />
                         <img src="./images/explaination.png" class="explain" />
                     </div>
                 </div>
@@ -79,13 +75,11 @@
                 <div class="info">
                     <div class="base">HexaDecimal</div>
                     <div class="options">
-                        <img class="copy" src="./images/copy4.png" />
+                        <img class="copy" src="./images/copy.png" />
                         <img src="./images/explaination.png" class="explain" />
                     </div>
                 </div>
-                <!-- <div class="input"> -->
                 <input id="hexaDecimal" type="text" />
-                <!-- </div> -->
             </div>
         </form>
 
@@ -94,10 +88,3 @@
         <script src="./scripts/expl.js"></script>
     </body>
 </html>
-
-<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/catalin-fertu" title="Catalin Fertu">Catalin Fertu</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
-<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
-<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/dmitri13" title="dmitri13">dmitri13</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
-<!-- background: https://codepen.io/nodws/pen/YPgZao -->
-<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
-<!-- <div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->

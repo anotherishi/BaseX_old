@@ -40,8 +40,12 @@ body {
 }
 
 #error-img {
+    margin-right: 23vh;
+    font-size: 4vh;
+
     background-color: #ff7777;
-    padding: 0.7vh;
+    padding: 0 1.3vh;
+    /* padding: 0.7vh; */
     clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
 }
 

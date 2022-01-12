@@ -740,3 +740,11 @@
     //             step3.appendChild(step3Body);
     //             explcontent.appendChild(step3);
     //         },
+
+
+
+// copying
+    // let curpos = input.selectionStart;
+    // input.select();
+    // document.execCommand("copy");
+    // input.setSelectionRange(curpos, curpos);
